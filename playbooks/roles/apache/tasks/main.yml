@@ -1,0 +1,53 @@
+---
+# Install Apache
+- name: Ensure Apache is installed
+  apt:
+    name:
+      - apache2
+      - apache2-utils
+    state: present
+
+# Remove unneeded Apache modules
+- name: Remove mod_php{{php_version}}
+  apt:
+    name: "libapache2-mod-php{{php_version}}"
+    state: absent
+- name: Remove mod_php config file
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - /etc/apache2/mods-available/php{{php_version}}.conf
+    - /etc/apache2/mods-available/php{{php_version}}.load
+  notify: Reload Apache
+
+- name: Enable proxy_fcgi
+  apache2_module:
+    name: proxy_fcgi
+    state: present
+
+- name: Replace default site configuration
+  template:
+    src: 000-default.conf.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+    # owner: root
+    # group: root
+    # mode: 0644
+  notify: Reload Apache
+
+# - name: Add vhost symlink in sites-enabled.
+#   file:
+#     src: "{{ apache_conf_path }}/sites-available/{{ apache_vhosts_filename }}"
+#     dest: "{{ apache_conf_path }}/sites-enabled/{{ apache_vhosts_filename }}"
+#     state: link
+#     mode: 0644
+#     force: "{{ ansible_check_mode }}"
+#   notify: restart apache
+#   when: apache_create_vhosts | bool
+
+# - name: Remove default vhost in sites-enabled.
+#   file:
+#     path: "{{ apache_conf_path }}/sites-enabled/{{ apache_default_vhost_filename }}"
+#     state: absent
+#   notify: restart apache
+#   when: apache_remove_default_vhost
