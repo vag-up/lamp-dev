@@ -1,15 +1,15 @@
 # LAMP構成のPHP開発環境を構築
 
 Vagrantコマンドの実行でVirtualBoxベースの仮想環境(Ubuntu22)上にLAMP環境を構築します。
-LEMP環境に対してVSCodeでリモートデバッグができます。
+LAMP環境に対してVSCodeでリモートデバッグができます。
 
-LEMP環境は最新のバージョンがインストールされます。
+LAMP環境は最新のバージョンがインストールされます。
 
 - PHP 8.4
 - Apache 2.4.52
 - MariaDB 11.7
 
-![lemp-dev](https://github.com/user-attachments/assets/faf7eb41-6778-4a94-a624-e312c1291f31)
+![lamp-dev](https://github.com/user-attachments/assets/faf7eb41-6778-4a94-a624-e312c1291f31)
 
 ## インストールに必要な環境
 
@@ -18,7 +18,7 @@ LEMP環境は最新のバージョンがインストールされます。
 - Vagrant
 - VirtualBox
 
-## LEMP環境の構築
+## LAMP環境の構築
 
 1. `Vagrantfile`を編集します。仮想サーバに**SSH公開鍵認証**で接続できるように**IP**と**SSH接続**を設定します。
 
