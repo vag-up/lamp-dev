@@ -43,7 +43,3 @@
   template:
     src: index2.php.j2
     dest: /var/www/remote/app/index2.php
-
-- name: Remove dependencies that are no longer required
-  apt:
-    autoremove: yes
